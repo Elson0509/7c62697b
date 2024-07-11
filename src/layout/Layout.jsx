@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header.jsx";
-import LoadingSuspense from '../components/loadings/LoadingSuspense.js'
+import Footer from "./Footer.jsx";
 
 const Layout = (props) => {
   return (
@@ -14,6 +14,7 @@ const Layout = (props) => {
         <main className="container-view">
             {props.children}
         </main>
+        <Footer/>
       </div>
     </div>
   );

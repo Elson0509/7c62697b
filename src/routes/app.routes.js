@@ -2,17 +2,19 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 //loading lazy Suspense
-import LoadingSuspense from "../components/loadings/LoadingSuspense.js";
+import Loading from "../components/loadings/Loading.jsx";
 //routes
 const FeedLazy = lazy(() => import("../pages/Feed.jsx"));
 const DetailLazy = lazy(() => import("../pages/Detail.jsx"));
+const ArchiveLazy = lazy(() => import("../pages/Archive.jsx"));
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<LoadingSuspense />}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<FeedLazy />} />
         <Route path="/detail" element={<DetailLazy />} />
+        <Route path="/archive" element={<ArchiveLazy />} />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </Suspense>
