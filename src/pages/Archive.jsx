@@ -3,6 +3,9 @@ import api from "../utils/api.js";
 import Layout from "../layout/Layout.jsx";
 import SkeletonGroup from "../components/loadings/SkeletonGroup.jsx";
 import CallList from "../components/lists/CallList.jsx";
+import NoCallsAvailableMessage from "../components/messages/NoCallsAvailableMessage.jsx";
+import ErrorOccurredMessage from "../components/messages/ErrorOccurredMessage.jsx";
+import TEXTS from "../utils/texts/en.js";
 
 const Archive = () => {
   const [listOfCalls, setListOfCalls] = useState([]);
@@ -35,7 +38,7 @@ const Archive = () => {
     api
       .patch(`reset`)
       .then(() => {
-        fetchCalls();
+        fetchCalls(); // Refetch calls after unarchiving
       })
       .catch(() => {
         setHasError(true);
@@ -56,7 +59,10 @@ const Archive = () => {
   if (hasError) {
     return (
       <Layout>
-        <div>Sorry. An error has occurred.</div>
+        <div className="main-header">
+          <h1 className="h1">{TEXTS.TITLES.ARCHIVE_PAGE}</h1>
+        </div>
+        <ErrorOccurredMessage />
       </Layout>
     );
   }
@@ -64,7 +70,10 @@ const Archive = () => {
   if (!listOfCalls.length) {
     return (
       <Layout>
-        <div>No calls available.</div>
+        <div className="main-header">
+          <h1 className="h1">{TEXTS.TITLES.ARCHIVE_PAGE}</h1>
+        </div>
+        <NoCallsAvailableMessage />
       </Layout>
     );
   }
@@ -72,8 +81,10 @@ const Archive = () => {
   return (
     <Layout>
       <div className="main-header">
-        <h1>Archive</h1>
-        <button onClick={unarchiveAllCalls}>Unarchive All</button>
+        <h1 className="h1">{TEXTS.TITLES.ARCHIVE_PAGE}</h1>
+        <button onClick={unarchiveAllCalls}>
+          {TEXTS.BUTTONS.UNARCHIVE_ALL}
+        </button>
       </div>
       <CallList calls={listOfCalls} />
     </Layout>

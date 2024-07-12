@@ -3,7 +3,7 @@ import CallItem from "./CallItem.jsx";
 
 const CallList = ({ calls = [] }) => {
   return (
-    <div>
+    <div className="p-0">
       {!!calls.length &&
         calls.map((call) => <CallItem key={call.id} call={call} />)}
     </div>

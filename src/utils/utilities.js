@@ -50,3 +50,20 @@ export const iconCallColor = (call_type) => {
       return THEME.COLORS.PRIMARY;
   }
 };
+
+//Return a string of the direction depending on the direction
+export const getDirectionString = (direction) => {
+  return direction === "inbound" ? "Incoming" : "Outgoing"
+};
+
+//Return a string of the direction depending on the direction
+export const getCallTypeString = (call_type) => {
+  switch (call_type) {
+    case "missed":
+      return "Missed Call"
+    case "answered":
+      return "Answered";
+    default:
+      return "Voicemail";
+  }
+};

@@ -4,6 +4,9 @@ import api from "../utils/api.js";
 import Layout from "../layout/Layout.jsx";
 import SkeletonGroup from "../components/loadings/SkeletonGroup.jsx";
 import CallDetail from "../components/infos/CallDetail.jsx";
+import InvalidCallId from "../components/messages/InvalidCallId.jsx";
+import ErrorOccurredMessage from "../components/messages/ErrorOccurredMessage.jsx";
+import TEXTS from "../utils/texts/en.js";
 
 const Detail = () => {
   const { id } = useParams();
@@ -15,7 +18,8 @@ const Detail = () => {
     setIsLoading(true);
     setHasError(false);
 
-    api.get(`activities/${id}`)
+    api
+      .get(`activities/${id}`)
       .then((resp) => {
         setCall(resp.data);
       })
@@ -33,7 +37,8 @@ const Detail = () => {
 
   const changeArchiveStatus = () => {
     setIsLoading(true);
-    api.patch(`activities/${id}`, { is_archived: !call.is_archived })
+    api
+      .patch(`activities/${id}`, { is_archived: !call.is_archived })
       .then(() => {
         fetchActivity();
       })
@@ -56,7 +61,10 @@ const Detail = () => {
   if (hasError) {
     return (
       <Layout>
-        <div>Sorry. An error has occurred.</div>
+        <div className="main-header">
+          <h1 className="h1">{TEXTS.TITLES.DETAIL_PAGE}</h1>
+        </div>
+        <ErrorOccurredMessage />
       </Layout>
     );
   }
@@ -64,7 +72,10 @@ const Detail = () => {
   if (!call) {
     return (
       <Layout>
-        <div>Invalid call identification.</div>
+        <div className="main-header">
+        <h1 className="h1">{TEXTS.TITLES.DETAIL_PAGE}</h1>
+        </div>
+        <InvalidCallId />
       </Layout>
     );
   }
@@ -72,9 +83,9 @@ const Detail = () => {
   return (
     <Layout>
       <div className="main-header">
-        <h1>Detail of Call</h1>
+      <h1 className="h1">{TEXTS.TITLES.DETAIL_PAGE}</h1>
         <button onClick={changeArchiveStatus}>
-          {call.is_archived ? 'Unarchive' : 'Archive'}
+          {call.is_archived ? TEXTS.BUTTONS.UNARCHIVE : TEXTS.BUTTONS.ARCHIVE}
         </button>
       </div>
       <CallDetail call={call} />

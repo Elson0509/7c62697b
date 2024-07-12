@@ -11,7 +11,7 @@ const Layout = (props) => {
           <Header />
         </div>
         </div>
-        <main className="container-view">
+        <main className='row'>
             {props.children}
         </main>
         <Footer/>

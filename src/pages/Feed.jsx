@@ -3,6 +3,9 @@ import api from "../utils/api.js";
 import Layout from "../layout/Layout.jsx";
 import SkeletonGroup from "../components/loadings/SkeletonGroup.jsx";
 import CallList from "../components/lists/CallList.jsx";
+import NoCallsAvailableMessage from "../components/messages/NoCallsAvailableMessage.jsx";
+import ErrorOccurredMessage from "../components/messages/ErrorOccurredMessage.jsx";
+import TEXTS from "../utils/texts/en.js";
 
 const Feed = () => {
   const [listOfCalls, setListOfCalls] = useState([]);
@@ -34,7 +37,7 @@ const Feed = () => {
     try {
       setIsLoading(true);
       await Promise.all(
-        listOfCalls.map(call =>
+        listOfCalls.map((call) =>
           api.patch(`activities/${call.id}`, { is_archived: true })
         )
       );
@@ -57,7 +60,10 @@ const Feed = () => {
   if (hasError) {
     return (
       <Layout>
-        <div>Sorry. An error has occurred.</div>
+        <div className="main-header">
+          <h1 className="h1">{TEXTS.TITLES.FEED_PAGE}</h1>
+        </div>
+        <ErrorOccurredMessage />
       </Layout>
     );
   }
@@ -65,7 +71,10 @@ const Feed = () => {
   if (!listOfCalls.length) {
     return (
       <Layout>
-        <div>No calls available.</div>
+        <div className="main-header">
+          <h1 className="h1">{TEXTS.TITLES.FEED_PAGE}</h1>
+        </div>
+        <NoCallsAvailableMessage />
       </Layout>
     );
   }
@@ -73,8 +82,8 @@ const Feed = () => {
   return (
     <Layout>
       <div className="main-header">
-        <h1>Recents</h1>
-        <button onClick={archiveAllCalls}>Archive All</button>
+        <h1 className="h1">{TEXTS.TITLES.FEED_PAGE}</h1>
+        <button onClick={archiveAllCalls}>{TEXTS.BUTTONS.ARCHIVE_ALL}</button>
       </div>
       <CallList calls={listOfCalls} />
     </Layout>
