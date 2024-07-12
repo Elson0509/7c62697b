@@ -45,6 +45,7 @@ body {
   flex-direction: column;
   gap: 8px;
   align-items: center;
+  margin-top: 10px;
 }
 
 .calldetail-header p{

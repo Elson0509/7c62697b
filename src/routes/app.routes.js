@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import Header from "../layout/Header.jsx";
 //loading lazy Suspense
 import Loading from "../components/loadings/Loading.jsx";
 //routes

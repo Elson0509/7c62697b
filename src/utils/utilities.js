@@ -1,4 +1,5 @@
 import THEME from "./theme";
+import TEXTS from "./texts/en";
 
 //Return the time (hh:mm) from a date in format string
 export const printTime = (dateString) => {
@@ -53,17 +54,17 @@ export const iconCallColor = (call_type) => {
 
 //Return a string of the direction depending on the direction
 export const getDirectionString = (direction) => {
-  return direction === "inbound" ? "Incoming" : "Outgoing"
+  return direction === "inbound" ? TEXTS.INFORMATION.INBOUND : TEXTS.INFORMATION.OUTBOUND
 };
 
 //Return a string of the direction depending on the direction
 export const getCallTypeString = (call_type) => {
   switch (call_type) {
     case "missed":
-      return "Missed Call"
+      return TEXTS.INFORMATION.MISSED
     case "answered":
-      return "Answered";
+      return TEXTS.INFORMATION.ANSWERED
     default:
-      return "Voicemail";
+      return TEXTS.INFORMATION.VOICEMAIL
   }
 };

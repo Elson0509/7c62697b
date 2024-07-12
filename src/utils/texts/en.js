@@ -7,9 +7,13 @@ const TEXTS = {
   },
   INFORMATION: {
     AIRCALL: "Aircall",
+    ANSWERED: "Answered",
     DURATION: "Duration",
+    INBOUND: "Incoming",
+    MISSED: "Missed Call",
+    OUTBOUND: "Outgoing",
     SECONDS: "seconds",
-    VOICEMAIL: "Voicemail"
+    VOICEMAIL: "Voicemail",
   },
   MESSAGES: {
     ERROR: "Sorry. An error has occurred.",
