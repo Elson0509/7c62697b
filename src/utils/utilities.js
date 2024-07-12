@@ -1,3 +1,5 @@
+import THEME from "./theme";
+
 //Return the time (hh:mm) from a date in format string
 export const printTime = (dateString) => {
   if (!dateString) {
@@ -35,4 +37,16 @@ export const printFormattedDate = (dateString) => {
   const formattedDate = `${month}/${day}/${year}`;
 
   return formattedDate;
+};
+
+//Return the color of the call depending on the call_type
+export const iconCallColor = (call_type) => {
+  switch (call_type) {
+    case "missed":
+      return THEME.COLORS.DANGER;
+    case "answered":
+      return THEME.COLORS.SUCCESS;
+    default:
+      return THEME.COLORS.PRIMARY;
+  }
 };

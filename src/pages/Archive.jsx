@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../utils/api.js";
 import Layout from "../layout/Layout.jsx";
 import SkeletonGroup from "../components/loadings/SkeletonGroup.jsx";
@@ -9,11 +9,7 @@ const Archive = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    fetchCalls();
-  }, []);
-
-  const fetchCalls = () => {
+  const fetchCalls = useCallback(() => {
     setIsLoading(true);
     setHasError(false);
     api
@@ -28,9 +24,14 @@ const Archive = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  };
+  }, []);
 
-  const unarchiveAllCalls = async () => {
+  useEffect(() => {
+    fetchCalls();
+  }, [fetchCalls]);
+
+  const unarchiveAllCalls = () => {
+    setIsLoading(true);
     api
       .patch(`reset`)
       .then(() => {
@@ -38,6 +39,9 @@ const Archive = () => {
       })
       .catch(() => {
         setHasError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -49,20 +53,29 @@ const Archive = () => {
     );
   }
 
+  if (hasError) {
+    return (
+      <Layout>
+        <div>Sorry. An error has occurred.</div>
+      </Layout>
+    );
+  }
+
+  if (!listOfCalls.length) {
+    return (
+      <Layout>
+        <div>No calls available.</div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      <div className="feed-header">
+      <div className="main-header">
         <h1>Archive</h1>
-        {!!listOfCalls.length && (
-          <button onClick={unarchiveAllCalls}>Unarchive All</button>
-        )}
+        <button onClick={unarchiveAllCalls}>Unarchive All</button>
       </div>
-      {hasError ? (
-        <div>Sorry. An error has occurred.</div>
-      ) : (
-        <CallList calls={listOfCalls} />
-      )}
-      {!hasError && !listOfCalls.length && <div>No calls available.</div>}
+      <CallList calls={listOfCalls} />
     </Layout>
   );
 };

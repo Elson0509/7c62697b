@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../utils/api.js";
 import Layout from "../layout/Layout.jsx";
 import SkeletonGroup from "../components/loadings/SkeletonGroup.jsx";
@@ -9,11 +9,7 @@ const Feed = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    fetchCalls();
-  }, []);
-
-  const fetchCalls = () => {
+  const fetchCalls = useCallback(() => {
     setIsLoading(true);
     setHasError(false);
     api
@@ -28,10 +24,15 @@ const Feed = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchCalls();
+  }, [fetchCalls]);
 
   const archiveAllCalls = async () => {
     try {
+      setIsLoading(true);
       await Promise.all(
         listOfCalls.map(call =>
           api.patch(`activities/${call.id}`, { is_archived: true })
@@ -40,6 +41,8 @@ const Feed = () => {
       fetchCalls(); // Refetch calls after archiving
     } catch (error) {
       setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,20 +54,29 @@ const Feed = () => {
     );
   }
 
+  if (hasError) {
+    return (
+      <Layout>
+        <div>Sorry. An error has occurred.</div>
+      </Layout>
+    );
+  }
+
+  if (!listOfCalls.length) {
+    return (
+      <Layout>
+        <div>No calls available.</div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      <div className="feed-header">
+      <div className="main-header">
         <h1>Recents</h1>
-        {!!listOfCalls.length && (
-          <button onClick={archiveAllCalls}>Archive All</button>
-        )}
+        <button onClick={archiveAllCalls}>Archive All</button>
       </div>
-      {hasError ? (
-        <div>Sorry. An error has occurred.</div>
-      ) : (
-        <CallList calls={listOfCalls} />
-      )}
-      {!hasError && !listOfCalls.length && <div>No calls available.</div>}
+      <CallList calls={listOfCalls} />
     </Layout>
   );
 };

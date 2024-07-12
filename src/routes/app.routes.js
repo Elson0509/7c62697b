@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-
 //loading lazy Suspense
 import Loading from "../components/loadings/Loading.jsx";
 //routes
@@ -13,8 +12,8 @@ const AppRoutes = () => {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<FeedLazy />} />
-        <Route path="/detail" element={<DetailLazy />} />
         <Route path="/archive" element={<ArchiveLazy />} />
+        <Route path="/:id" element={<DetailLazy />} />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </Suspense>

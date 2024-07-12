@@ -18,13 +18,21 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.calldetail-container{
+  
+}
+
 .callitem-container{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.feed-header {
+.callitem-infoicon{
+  cursor: pointer;
+}
+
+.main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,13 +41,13 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
-.feed-header h1 {
+.main-header h1 {
   margin: 0;
   font-size: 1.5rem;
   color: #333;
 }
 
-.feed-header button {
+.main-header button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   color: #fff;
@@ -50,6 +58,6 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.feed-header button:hover {
+.main-header button:hover {
   background-color: #0056b3;
 }
