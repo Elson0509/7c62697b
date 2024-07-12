@@ -17,3 +17,39 @@ body {
   line-height: 1;
   font-family: 'Roboto', sans-serif;
 }
+
+.callitem-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.feed-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.feed-header button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.feed-header button:hover {
+  background-color: #0056b3;
+}

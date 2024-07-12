@@ -1,7 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes/app.routes";
+
+const root = ReactDOM.createRoot(document.getElementById("app"));
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("app"));
-
-export default App;
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
